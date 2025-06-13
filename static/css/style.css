@@ -1,0 +1,73 @@
+/* Import czcionki z Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Definicja "minecraftowych" kolorów jako zmienne CSS */
+:root {
+    --mc-dark-bg: #212529;      /* Ciemny jak deepslate */
+    --mc-light-bg: #f8f9fa;     /* Jasny jak diorite */
+    --mc-primary: #00AA00;      /* Kolor slime/emerald */
+    --mc-secondary: #AAAAAA;    /* Kolor kamienia */
+    --mc-accent: #5555FF;       /* Kolor lapis lazuli */
+    --mc-text-dark: #343a40;
+    --mc-text-light: #f8f9fa;
+    --mc-danger: #AA0000;       /* Kolor redstone */
+}
+
+/* Globalne style */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--mc-light-bg);
+    color: var(--mc-text-dark);
+}
+
+.navbar {
+    background-color: var(--mc-dark-bg) !important;
+}
+
+.btn-primary {
+    background-color: var(--mc-accent);
+    border-color: var(--mc-accent);
+}
+.btn-primary:hover {
+    background-color: #4444dd; /* Ciemniejszy lapis */
+    border-color: #4444dd;
+}
+
+.btn-success {
+    background-color: var(--mc-primary);
+    border-color: var(--mc-primary);
+}
+.btn-success:hover {
+    background-color: #008800; /* Ciemniejszy slime */
+    border-color: #008800;
+}
+
+.btn-secondary {
+    background-color: var(--mc-secondary);
+    border-color: var(--mc-secondary);
+}
+.btn-secondary:hover {
+    background-color: #888888; /* Ciemniejszy kamień */
+    border-color: #888888;
+}
+
+.table-dark {
+    --bs-table-bg: var(--mc-dark-bg);
+    --bs-table-border-color: #495057;
+}
+
+.badge.bg-secondary {
+    background-color: var(--mc-secondary) !important;
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+/* Styl dla emotki skrzyni */
+.chest-icon {
+    font-size: 1.2em;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}

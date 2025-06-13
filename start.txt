@@ -1,0 +1,7 @@
+cd C:\Kurs\AI\Python\MojSklep
+
+venv\Scripts\activate
+
+flask init-db
+
+flask run --port 8000
