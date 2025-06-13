@@ -8,10 +8,15 @@ from functools import wraps
 from flask import Flask, render_template, g, request, redirect, url_for, flash, session
 from flask.cli import with_appcontext
 from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
+
+# Wczytuje zmienne środowiskowe z pliku .env (dla lokalnego dewelopmentu)
+load_dotenv() 
 
 # --- App Configuration & Helpers ---
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'change-this-key-to-something-very-secret'
+# Pobiera klucz z zmiennych środowiskowych (z pliku .env lokalnie, z Secret File na Render)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 DATABASE = 'ksiega_handlowa.db'
 
@@ -28,7 +33,7 @@ def format_quantity(quantity):
     return " + ".join(parts)
 app.jinja_env.filters['format_quantity'] = format_quantity
 
-# --- Item List (unchanged) ---
+# --- Item List ---
 ITEM_LIST = [
     'Acacia Sapling', 'Acacia Wood', 'Activator Rail', 'Allium', 'Amethyst Cluster', 'Amethyst Shard', 'Ancient Debris', 
     'Andesite', 'Angler Pottery Sherd', 'Anvil', 'Apple', 'Archer Pottery Sherd', 'Armadillo Scute', 'Armor Stand', 
