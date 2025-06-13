@@ -1,19 +1,14 @@
--- Deletes old tables if they exist to ensure a clean start
-DROP TABLE IF EXISTS "User";
-DROP TABLE IF EXISTS "Item";
-DROP TABLE IF EXISTS "Transaction";
-DROP TABLE IF EXISTS "LayoutCell";
-DROP TABLE IF EXISTS "ChangeLog";
+-- Creates tables only if they don't already exist.
+-- This makes the init-db command safe to run multiple times.
 
--- Creates new tables
-CREATE TABLE "User" (
+CREATE TABLE IF NOT EXISTS "User" (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
     role TEXT NOT NULL DEFAULT 'user' CHECK(role IN ('admin', 'supplier', 'user')),
-    password_hash TEXT NOT NULL -- ZMIANA: Zamiast kodu, przechowujemy hash hasła
+    password_hash TEXT NOT NULL
 );
 
-CREATE TABLE "Item" (
+CREATE TABLE IF NOT EXISTS "Item" (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT UNIQUE NOT NULL,
     category TEXT NOT NULL,
@@ -22,7 +17,7 @@ CREATE TABLE "Item" (
     price_quantity INTEGER NOT NULL DEFAULT 1
 );
 
-CREATE TABLE "Transaction" (
+CREATE TABLE IF NOT EXISTS "Transaction" (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     item_id INTEGER NOT NULL,
     supplier_id INTEGER NOT NULL,
@@ -33,7 +28,7 @@ CREATE TABLE "Transaction" (
     FOREIGN KEY (supplier_id) REFERENCES "User" (id)
 );
 
-CREATE TABLE "LayoutCell" (
+CREATE TABLE IF NOT EXISTS "LayoutCell" (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     x_coord INTEGER NOT NULL,
     y_coord INTEGER NOT NULL,
@@ -41,7 +36,7 @@ CREATE TABLE "LayoutCell" (
     UNIQUE(x_coord, y_coord)
 );
 
-CREATE TABLE "ChangeLog" (
+CREATE TABLE IF NOT EXISTS "ChangeLog" (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     item_id INTEGER,
@@ -50,7 +45,8 @@ CREATE TABLE "ChangeLog" (
     FOREIGN KEY (user_id) REFERENCES "User" (id),
     FOREIGN KEY (item_id) REFERENCES "Item" (id)
 );
-CREATE TABLE "Orders" (
+
+CREATE TABLE IF NOT EXISTS "Orders" (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     item_id INTEGER NOT NULL,
